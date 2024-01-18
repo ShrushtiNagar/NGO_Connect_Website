@@ -12,14 +12,15 @@
     <h1>NGO Connect App</h1>
     <img src="Images/logo.PNG" width="210px;" height="210px;">
     <br><br><br>
-    <div>
+    <form name="contact" netlify>
         <p>Enter your Email Address for deletion :</p>
         <input type="email" id="email" name="email" placeholder="Enter your Email...">
         <p>OR</p>
         <p>Enter your Phone Number:</p>
         <input type="tel" id="number" name="number" placeholder="Enter your Number..">
-    </div>
-    <button type="button" onclick="requestAccountDeletion()">Delete Account</button>
+        <button type="button" onclick="requestAccountDeletion()">Delete Account</button>
+    </form>
+    
 
 
     <script src="https://smtpjs.com/v2/smtp.js"></script>
@@ -31,61 +32,29 @@
                 alert("Please enter a valid email or number.");
                 return;
             }
+            if(email.trim() === ''){
+                sendMail(number);
+            }
+            else{
+                sendMail(email);
+            }
             document.getElementById("email").value = '';
             document.getElementById("number").value = '';
 
-            sendMail();
-
-
-            // // Replace 'YOUR_SERVER_ENDPOINT' with your actual server endpoint
-            // var serverEndpoint = 'https://example.com/send-email';
-
-            // // Example data to be sent to the server
-            // var data = {
-            //     senderEmail: email,
-            //     developerEmail: 'ngoconnectapp@gmail.com', // Replace with the actual developer's email
-            // };
-            // // Make a POST request to the server
-            // fetch(serverEndpoint, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data),
-            // })
-            //     .then(response => {
-            //         if (response.ok) {
-            //             alert('Email sent successfully.');
-            //         } else {
-            //             alert('Failed to send email. Please try again later.');
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error:', error);
-            //         alert('An error occurred. Please try again later.');
-            //     });
-            Email.send(
-            "from@$(email).com",
-            "to@ngoconnect@gmail.com",
-            "This is a subject",
-            "this is the body",
-            "smtp.yourisp.com",
-            "username",
-            "password"
-        );
+            
         }
         
 
-        function sendMail() {
+        function sendMail(message) {
             var link = "mailto:ngoconnectapp@gmail.com"
-                + "?cc=myCCaddress@example.com"
-                + "&subject=" + encodeURIComponent("This is my subject")
-                + "&body=" + encodeURIComponent("This is to delete this account.")
+                + "?cc=shrushtinagar.work@gmail.com"
+                + "&subject=" + encodeURIComponent("Request for Account Deletion ")
+                + "&body=" + encodeURIComponent(`This is to delete this account  :: ${message}`)
                 ;
 
             window.location.href = link;
 
-            alert("Account deletion request sent. The developer will review your request.");
+            alert("Account deletion request sent. The developer will delete your account.");
         }
     </script>
 
